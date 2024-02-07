@@ -11,7 +11,6 @@ import {
     Legend,
     Tooltip,
 } from "chart.js";
-import dayjs from "dayjs";
 
 ChartJS.register(
     LineElement,
@@ -46,8 +45,8 @@ export default function Dashboard({ auth, days, daysSelector }) {
         },
         scales: {
             y: {
-                min: Math.min(...days?.map((day) => day.reservations_count)),
-                max: Math.max(...days?.map((day) => day.reservations_count)),
+                min: 0,
+                max: 200,
             },
         },
     };

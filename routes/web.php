@@ -39,7 +39,7 @@ Route::get('/dashboard', function (Request $request) {
         "daysSelector" => Day::pluck("day"),
         "days" => Day::whereBetween('day', [$request->query('startDate'), $request->query('endDate')])->withCount("reservations")->get()
     ]);
-})->name('dashboard');
+})->middleware('auth')->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
