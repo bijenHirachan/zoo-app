@@ -30,7 +30,7 @@ export default function Dashboard({ auth, days, daysSelector }) {
         labels: days?.map((day) => day.day),
         datasets: [
             {
-                label: "Sales of the week",
+                label: "Aantal bezoekers per dag",
                 data: days?.map((day) => day.reservations_count),
                 backgroundColor: "aqua",
                 borderColor: "black",

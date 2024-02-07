@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
-            ScheduleSeeder::class
+            ScheduleSeeder::class,
+            ReservationSeeder::class
         ]);
     }
 }

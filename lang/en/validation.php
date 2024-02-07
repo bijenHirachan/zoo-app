@@ -191,6 +191,15 @@ return [
         "last_name3" => [
             "required_unless" => "Vergeet niet de achternaam toe te voegen."
         ],
+        "subscription_number1" => [
+            "regex" => "Uw abonnementsnuumer heeft niet juiste formaat."
+        ],
+        "subscription_number2" => [
+            "regex" => "Uw abonnementsnuumer heeft niet juiste formaat."
+        ],
+        "subscription_number3" => [
+            "regex" => "Uw abonnementsnuumer heeft niet juiste formaat."
+        ],
     ],
 
     /*

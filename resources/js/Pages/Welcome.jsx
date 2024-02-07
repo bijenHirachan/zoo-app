@@ -124,6 +124,7 @@ const Welcome = ({ days, schedules, errors }) => {
                                 }
                                 id="subscription_number1"
                                 type="text"
+                                placeholder="1234-1234-12"
                             />
                             <span className="text-xs text-red-500">
                                 {errors.subscription_number1}
@@ -173,6 +174,7 @@ const Welcome = ({ days, schedules, errors }) => {
                                 }
                                 id="subscription_number2"
                                 type="text"
+                                placeholder="1234-1234-12"
                             />
                             <span className="text-xs text-red-500">
                                 {errors.subscription_number2}
@@ -222,6 +224,7 @@ const Welcome = ({ days, schedules, errors }) => {
                                 }
                                 id="subscription_number3"
                                 type="text"
+                                placeholder="1234-1234-12"
                             />
                             <span className="text-xs text-red-500">
                                 {errors.subscription_number3}
