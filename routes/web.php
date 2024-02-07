@@ -32,6 +32,9 @@ Route::get('/', function (Request $request) {
 });
 
 Route::post("/reservations", [ReservationController::class, "store"]);
+Route::get("/success", function(){
+    return Inertia::render("Success");
+})->name("success");
 
 Route::get('/dashboard', function (Request $request) {
 

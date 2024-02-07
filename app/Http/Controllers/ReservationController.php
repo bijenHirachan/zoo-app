@@ -44,5 +44,7 @@ class ReservationController extends Controller
         }
 
         DB::table("reservations")->insert($data);
+
+        return to_route("success");
     }
 }

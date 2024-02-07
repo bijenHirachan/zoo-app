@@ -37,10 +37,13 @@ const Welcome = ({ days, schedules, errors }) => {
     };
 
     return (
-        <div className="p-8">
+        <div className="min-h-screen py-16 flex justify-center items-center">
             <Head title="Welcome" />
 
-            <form onSubmit={submitHandler} className="flex flex-col gap-4">
+            <form
+                onSubmit={submitHandler}
+                className="w-full sm:w-3/5 lg:w-2/5 flex flex-col gap-4"
+            >
                 <div className="flex flex-col w-1/2">
                     <label htmlFor="day">Datum</label>
                     <select
