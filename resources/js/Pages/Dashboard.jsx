@@ -83,9 +83,10 @@ export default function Dashboard({ auth, days, daysSelector }) {
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <form
                             onSubmit={submitHandler}
-                            className="p-6 flex gap-2"
+                            className="p-6 flex gap-2 justify-end"
                         >
                             <select
+                                className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
                                 value={startDate}
                                 onChange={(e) => setStartDate(e.target.value)}
                             >
@@ -98,6 +99,7 @@ export default function Dashboard({ auth, days, daysSelector }) {
                                     ))}
                             </select>
                             <select
+                                className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
                                 value={endDate}
                                 onChange={(e) => setEndDate(e.target.value)}
                             >
@@ -109,9 +111,14 @@ export default function Dashboard({ auth, days, daysSelector }) {
                                         </option>
                                     ))}
                             </select>
-                            <button type="submit">Submit</button>
+                            <button
+                                className="border border-gray-600 px-3 py-1 text-gray-600 font-semibold rounded hover:bg-gray-500 hover:text-gray-50 transition-all delay-75"
+                                type="submit"
+                            >
+                                Submit
+                            </button>
                         </form>
-                        <div className="p-6 text-gray-900 ">
+                        <div className="p-6 text-gray-900 flex justify-center items-center w-full min-h-[70svh]">
                             <Line data={data} options={options}></Line>
                         </div>
                     </div>

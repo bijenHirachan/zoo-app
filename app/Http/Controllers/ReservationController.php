@@ -6,6 +6,7 @@ use App\Http\Requests\StoreReservationRequest;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class ReservationController extends Controller
 {
@@ -43,8 +44,10 @@ class ReservationController extends Controller
             ]);
         }
 
-        DB::table("reservations")->insert($data);
+        $d = DB::table("reservations")->insert($data);
 
-        return to_route("success");
+        return Inertia::render("Success", [
+            "data" => $data[0]
+        ]);
     }
 }

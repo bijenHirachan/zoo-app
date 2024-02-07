@@ -1,7 +1,7 @@
-import { Head, router, useForm } from "@inertiajs/react";
+import { Head, Link, router, useForm } from "@inertiajs/react";
 import React, { useEffect, useState } from "react";
 
-const Welcome = ({ days, schedules, errors }) => {
+const Welcome = ({ auth, days, schedules, errors }) => {
     const { data, setData, progress, post } = useForm({
         day: "",
         timeslot: "",
@@ -42,11 +42,38 @@ const Welcome = ({ days, schedules, errors }) => {
 
             <form
                 onSubmit={submitHandler}
-                className="w-full sm:w-3/5 lg:w-2/5 flex flex-col gap-4"
+                className="w-full sm:w-4/5 lg:w-3/5 2xl:w-2/5 flex flex-col gap-4"
             >
-                <div className="flex flex-col w-1/2">
-                    <label htmlFor="day">Datum</label>
+                <div className="flex items-center justify-between">
+                    <h2 className="text-2xl font-semibold text-gray-600 tracking-wide">
+                        Zoo registratie
+                    </h2>
+                    {auth?.user ? (
+                        <Link
+                            href="/dashboard"
+                            className="text-sm tracking-wide hover:underline text-blue-500"
+                        >
+                            Dashboard
+                        </Link>
+                    ) : (
+                        <Link
+                            href="/login"
+                            className="text-sm tracking-wide hover:underline text-blue-500"
+                        >
+                            Log In
+                        </Link>
+                    )}
+                </div>
+
+                <div className="flex  flex-col w-1/2">
+                    <label
+                        className="text-sm text-gray-600 tracking-wide leading-6"
+                        htmlFor="day"
+                    >
+                        Datum
+                    </label>
                     <select
+                        className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
                         name="day"
                         id="day"
                         value={data.day}
@@ -60,12 +87,20 @@ const Welcome = ({ days, schedules, errors }) => {
                                 </option>
                             ))}
                     </select>
-                    <span className="text-xs text-red-500">{errors.day}</span>
+                    <span className="text-xs mt-1 text-red-500">
+                        {errors.day}
+                    </span>
                 </div>
 
                 <div className="flex flex-col w-1/2">
-                    <label htmlFor="timeslot">Tijdslot</label>
+                    <label
+                        className="text-sm text-gray-600 tracking-wide leading-6"
+                        htmlFor="timeslot"
+                    >
+                        Tijdslot
+                    </label>
                     <select
+                        className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
                         value={data.tijdslot}
                         onChange={(e) => setData("timeslot", e.target.value)}
                         id="timeslot"
@@ -78,16 +113,22 @@ const Welcome = ({ days, schedules, errors }) => {
                                 </option>
                             ))}
                     </select>
-                    <span className="text-xs text-red-500">
+                    <span className="text-xs mt-1 text-red-500">
                         {errors.timeslot}
                     </span>
                 </div>
 
-                <div className="border border-gray-400 p-4 flex flex-col gap-8">
-                    <div className="">
+                <div className="border rounded border-gray-400 p-4 flex flex-col gap-8">
+                    <div className="flex flex-col gap-2">
                         <div className="flex flex-col">
-                            <label htmlFor="first_name1">Voornaam</label>
+                            <label
+                                className="text-sm text-gray-600 tracking-wide leading-6"
+                                htmlFor="first_name1"
+                            >
+                                Voornaam
+                            </label>
                             <input
+                                className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
                                 value={data.first_name1}
                                 onChange={(e) =>
                                     setData("first_name1", e.target.value)
@@ -95,13 +136,19 @@ const Welcome = ({ days, schedules, errors }) => {
                                 id="first_name1"
                                 type="text"
                             />
-                            <span className="text-xs text-red-500">
+                            <span className="mt-1 text-xs text-red-500">
                                 {errors.first_name1}
                             </span>
                         </div>
                         <div className="flex flex-col">
-                            <label htmlFor="last_name1">Familienaam</label>
+                            <label
+                                className="text-sm text-gray-600 tracking-wide leading-6"
+                                htmlFor="last_name1"
+                            >
+                                Familienaam
+                            </label>
                             <input
+                                className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
                                 value={data.last_name1}
                                 onChange={(e) =>
                                     setData("last_name1", e.target.value)
@@ -109,15 +156,19 @@ const Welcome = ({ days, schedules, errors }) => {
                                 id="last_name1"
                                 type="text"
                             />
-                            <span className="text-xs text-red-500">
+                            <span className="text-xs mt-1 text-red-500">
                                 {errors.last_name1}
                             </span>
                         </div>
                         <div className="flex flex-col">
-                            <label htmlFor="subscription_number1">
+                            <label
+                                className="text-sm text-gray-600 tracking-wide leading-6"
+                                htmlFor="subscription_number1"
+                            >
                                 Abonnementsnummer
                             </label>
                             <input
+                                className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
                                 value={data.subscription_number1}
                                 onChange={(e) =>
                                     setData(
@@ -129,15 +180,21 @@ const Welcome = ({ days, schedules, errors }) => {
                                 type="text"
                                 placeholder="1234-1234-12"
                             />
-                            <span className="text-xs text-red-500">
+                            <span className="text-xs mt-1 text-red-500">
                                 {errors.subscription_number1}
                             </span>
                         </div>
                     </div>
-                    <div className="">
+                    <div className="flex flex-col gap-2">
                         <div className="flex flex-col">
-                            <label htmlFor="first_name2">Voornaam</label>
+                            <label
+                                className="text-sm text-gray-600 tracking-wide leading-6"
+                                htmlFor="first_name2"
+                            >
+                                Voornaam
+                            </label>
                             <input
+                                className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
                                 value={data.first_name2}
                                 onChange={(e) =>
                                     setData("first_name2", e.target.value)
@@ -145,13 +202,19 @@ const Welcome = ({ days, schedules, errors }) => {
                                 id="first_name2"
                                 type="text"
                             />
-                            <span className="text-xs text-red-500">
+                            <span className="text-xs mt-1 text-red-500">
                                 {errors.first_name2}
                             </span>
                         </div>
                         <div className="flex flex-col">
-                            <label htmlFor="last_name2">Familienaam</label>
+                            <label
+                                className="text-sm text-gray-600 tracking-wide leading-6"
+                                htmlFor="last_name2"
+                            >
+                                Familienaam
+                            </label>
                             <input
+                                className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
                                 value={data.last_name2}
                                 onChange={(e) =>
                                     setData("last_name2", e.target.value)
@@ -159,15 +222,19 @@ const Welcome = ({ days, schedules, errors }) => {
                                 id="last_name2"
                                 type="text"
                             />
-                            <span className="text-xs text-red-500">
+                            <span className="text-xs mt-1 text-red-500">
                                 {errors.last_name2}
                             </span>
                         </div>
                         <div className="flex flex-col">
-                            <label htmlFor="subscription_number2">
+                            <label
+                                className="text-sm text-gray-600 tracking-wide leading-6"
+                                htmlFor="subscription_number2"
+                            >
                                 Abonnementsnummer
                             </label>
                             <input
+                                className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
                                 value={data.subscription_number2}
                                 onChange={(e) =>
                                     setData(
@@ -179,15 +246,21 @@ const Welcome = ({ days, schedules, errors }) => {
                                 type="text"
                                 placeholder="1234-1234-12"
                             />
-                            <span className="text-xs text-red-500">
+                            <span className="text-xs mt-1 text-red-500">
                                 {errors.subscription_number2}
                             </span>
                         </div>
                     </div>
-                    <div className="">
+                    <div className="flex flex-col gap-2">
                         <div className="flex flex-col">
-                            <label htmlFor="first_name3">Voornaam</label>
+                            <label
+                                className="text-sm text-gray-600 tracking-wide leading-6"
+                                htmlFor="first_name3"
+                            >
+                                Voornaam
+                            </label>
                             <input
+                                className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
                                 value={data.first_name3}
                                 onChange={(e) =>
                                     setData("first_name3", e.target.value)
@@ -195,13 +268,19 @@ const Welcome = ({ days, schedules, errors }) => {
                                 id="first_name3"
                                 type="text"
                             />
-                            <span className="text-xs text-red-500">
+                            <span className="text-xs mt-1 text-red-500">
                                 {errors.first_name3}
                             </span>
                         </div>
                         <div className="flex flex-col">
-                            <label htmlFor="last_name3">Familienaam</label>
+                            <label
+                                className="text-sm text-gray-600 tracking-wide leading-6"
+                                htmlFor="last_name3"
+                            >
+                                Familienaam
+                            </label>
                             <input
+                                className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
                                 value={data.last_name3}
                                 onChange={(e) =>
                                     setData("last_name3", e.target.value)
@@ -209,15 +288,19 @@ const Welcome = ({ days, schedules, errors }) => {
                                 id="last_name3"
                                 type="text"
                             />
-                            <span className="text-xs text-red-500">
+                            <span className="text-xs mt-1 text-red-500">
                                 {errors.last_name3}
                             </span>
                         </div>
                         <div className="flex flex-col">
-                            <label htmlFor="subscription_number3">
+                            <label
+                                className="text-sm text-gray-600 tracking-wide leading-6"
+                                htmlFor="subscription_number3"
+                            >
                                 Abonnementsnummer
                             </label>
                             <input
+                                className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
                                 value={data.subscription_number3}
                                 onChange={(e) =>
                                     setData(
@@ -229,14 +312,20 @@ const Welcome = ({ days, schedules, errors }) => {
                                 type="text"
                                 placeholder="1234-1234-12"
                             />
-                            <span className="text-xs text-red-500">
+                            <span className="text-xs mt-1 text-red-500">
                                 {errors.subscription_number3}
                             </span>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <button type="submit">Reserveer!</button>
+                    <button
+                        disabled={progress}
+                        className="border border-gray-600 px-3 py-1 text-gray-600 font-semibold rounded hover:bg-gray-500 hover:text-gray-50 transition-all delay-75"
+                        type="submit"
+                    >
+                        Reserveer!
+                    </button>
                 </div>
             </form>
         </div>

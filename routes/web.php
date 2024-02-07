@@ -29,7 +29,7 @@ Route::get('/', function (Request $request) {
         "days" => Day::with("schedules")->get(),
         "schedules" => $day ? $day->schedules : collect()
     ]);
-});
+})->name("home");
 
 Route::post("/reservations", [ReservationController::class, "store"]);
 Route::get("/success", function(){
@@ -50,4 +50,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
 require __DIR__.'/auth.php';
+
+Route::get("reservations", function(){
+    abort(404);
+});
+
