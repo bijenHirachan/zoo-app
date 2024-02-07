@@ -1,7 +1,7 @@
 import { Head, router, useForm } from "@inertiajs/react";
 import React, { useEffect, useState } from "react";
 
-const Welcome = ({ dates, hours, errors }) => {
+const Welcome = ({ days, schedules, errors }) => {
     const { data, setData, progress, post } = useForm({
         day: "",
         timeslot: "",
@@ -44,16 +44,16 @@ const Welcome = ({ dates, hours, errors }) => {
                 <div className="flex flex-col w-1/2">
                     <label htmlFor="day">Datum</label>
                     <select
-                        name="date"
+                        name="day"
                         id="day"
                         value={data.day}
                         onChange={handleTimeslots}
                     >
                         <option value="">Select Date</option>
-                        {dates?.length > 0 &&
-                            dates.map((date) => (
-                                <option key={date.day} value={date.day}>
-                                    {date.day}
+                        {days?.length > 0 &&
+                            days.map((day) => (
+                                <option key={day.id} value={day.id}>
+                                    {day.day}
                                 </option>
                             ))}
                     </select>
@@ -68,10 +68,10 @@ const Welcome = ({ dates, hours, errors }) => {
                         id="timeslot"
                     >
                         <option value="">Select Time</option>
-                        {hours?.length > 0 &&
-                            hours.map((hour) => (
-                                <option key={hour.id} value={hour.id}>
-                                    {hour.start_time} - {hour.end_time}
+                        {schedules?.length > 0 &&
+                            schedules.map((schedule) => (
+                                <option key={schedule.id} value={schedule.id}>
+                                    {schedule.start_time} - {schedule.end_time}
                                 </option>
                             ))}
                     </select>

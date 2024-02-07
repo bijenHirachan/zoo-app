@@ -2,9 +2,12 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
+use App\Models\Day;
 use App\Models\Schedule;
+use Carbon\Carbon;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -20,16 +23,23 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function (Request $request) {
+
+    $day = Day::find($request->query("day"));
+
     return Inertia::render('Welcome', [
-        "dates" => Schedule::select("day")->groupBy("day")->get(),
-        "hours" => $request->query("day") !== "" ? Schedule::where("day", $request->query("day"))->get() : collect()
+        "days" => Day::with("schedules")->get(),
+        "schedules" => $day ? $day->schedules : collect()
     ]);
 });
 
 Route::post("/reservations", [ReservationController::class, "store"]);
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+Route::get('/dashboard', function (Request $request) {
+
+    return Inertia::render('Dashboard',[
+        "daysSelector" => Day::pluck("day"),
+        "days" => Day::whereBetween('day', [$request->query('startDate'), $request->query('endDate')])->withCount("reservations")->get()
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

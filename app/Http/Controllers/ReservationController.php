@@ -15,6 +15,7 @@ class ReservationController extends Controller
         $data = [];
 
         array_push($data, [ 
+            "day_id" => $validated["day"],
             "schedule_id" => $validated["timeslot"],
             "first_name" => $validated["first_name1"], 
             "last_name" => $validated["last_name1"],
@@ -23,6 +24,7 @@ class ReservationController extends Controller
 
         if($validated['first_name2'] !== "" && $validated["first_name2"] !== null){
             array_push($data, [ 
+                "day_id" => $validated["day"],
                 "schedule_id" => $validated["timeslot"],
                 "first_name" => $validated["first_name2"], 
                 "last_name" => $validated["last_name2"],
@@ -32,6 +34,7 @@ class ReservationController extends Controller
 
         if($validated['first_name3'] !== "" && $validated["first_name3"] !== null){
             array_push($data, [ 
+                "day_id" => $validated["day"],
                 "schedule_id" => $validated["timeslot"],
                 "first_name" => $validated["first_name3"], 
                 "last_name" => $validated["last_name3"],
