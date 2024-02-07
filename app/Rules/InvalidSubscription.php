@@ -23,7 +23,7 @@ class InvalidSubscription implements ValidationRule
 
         $total = $values[0].$values[1] ;
 
-        if($total%98 != $values[2]){
+        if(isset($values[2]) && $total%98 != $values[2]){
             $fail("Uw abonnementsnummer is ongeldig!");
         }
     }
