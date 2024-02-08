@@ -2,7 +2,10 @@ import { Head, Link, router, useForm } from "@inertiajs/react";
 import React, { useEffect, useState } from "react";
 
 const Welcome = ({ auth, days, schedules, errors }) => {
-    const { data, setData, progress, post } = useForm({
+    const [secondUser, setSecondUser] = useState(false);
+    const [thirdUser, setThirdUser] = useState(false);
+
+    const { data, setData, progress, post, reset } = useForm({
         day: "",
         timeslot: "",
         first_name1: "",
@@ -34,6 +37,26 @@ const Welcome = ({ auth, days, schedules, errors }) => {
                 replace: true,
             }
         );
+    };
+
+    const handleUsers = () => {
+        if (!secondUser) {
+            setSecondUser(true);
+        }
+        if (secondUser && !thirdUser) {
+            setThirdUser(true);
+        }
+    };
+
+    const removeUser = (option) => {
+        if (option === "second") {
+            reset("first_name2", "last_name2", "subscription_number2");
+            setSecondUser(false);
+        }
+        if (option === "third") {
+            reset("first_name3", "last_name3", "subscription_number3");
+            setThirdUser(false);
+        }
     };
 
     return (
@@ -120,6 +143,9 @@ const Welcome = ({ auth, days, schedules, errors }) => {
 
                 <div className="border rounded border-gray-400 p-4 flex flex-col gap-8">
                     <div className="flex flex-col gap-2">
+                        <p className="text-sm font-semibold text-gray-500">
+                            Bezoeker
+                        </p>
                         <div className="flex flex-col">
                             <label
                                 className="text-sm text-gray-600 tracking-wide leading-6"
@@ -185,140 +211,180 @@ const Welcome = ({ auth, days, schedules, errors }) => {
                             </span>
                         </div>
                     </div>
-                    <div className="flex flex-col gap-2">
-                        <div className="flex flex-col">
-                            <label
-                                className="text-sm text-gray-600 tracking-wide leading-6"
-                                htmlFor="first_name2"
-                            >
-                                Voornaam
-                            </label>
-                            <input
-                                className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
-                                value={data.first_name2}
-                                onChange={(e) =>
-                                    setData("first_name2", e.target.value)
-                                }
-                                id="first_name2"
-                                type="text"
-                            />
-                            <span className="text-xs mt-1 text-red-500">
-                                {errors.first_name2}
-                            </span>
+
+                    {secondUser && (
+                        <div className="flex flex-col gap-2">
+                            <div className="flex justify-between">
+                                <p className="text-sm font-semibold text-gray-500">
+                                    Extra bezoeker
+                                </p>
+                                <button
+                                    className="text-gray-600 text-sm hover:underline"
+                                    onClick={() => removeUser("second")}
+                                >
+                                    Verwijder
+                                </button>
+                            </div>
+                            <div className="flex flex-col">
+                                <label
+                                    className="text-sm text-gray-600 tracking-wide leading-6"
+                                    htmlFor="first_name2"
+                                >
+                                    Voornaam
+                                </label>
+                                <input
+                                    className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
+                                    value={data.first_name2}
+                                    onChange={(e) =>
+                                        setData("first_name2", e.target.value)
+                                    }
+                                    id="first_name2"
+                                    type="text"
+                                />
+                                <span className="text-xs mt-1 text-red-500">
+                                    {errors.first_name2}
+                                </span>
+                            </div>
+                            <div className="flex flex-col">
+                                <label
+                                    className="text-sm text-gray-600 tracking-wide leading-6"
+                                    htmlFor="last_name2"
+                                >
+                                    Familienaam
+                                </label>
+                                <input
+                                    className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
+                                    value={data.last_name2}
+                                    onChange={(e) =>
+                                        setData("last_name2", e.target.value)
+                                    }
+                                    id="last_name2"
+                                    type="text"
+                                />
+                                <span className="text-xs mt-1 text-red-500">
+                                    {errors.last_name2}
+                                </span>
+                            </div>
+                            <div className="flex flex-col">
+                                <label
+                                    className="text-sm text-gray-600 tracking-wide leading-6"
+                                    htmlFor="subscription_number2"
+                                >
+                                    Abonnementsnummer
+                                </label>
+                                <input
+                                    className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
+                                    value={data.subscription_number2}
+                                    onChange={(e) =>
+                                        setData(
+                                            "subscription_number2",
+                                            e.target.value
+                                        )
+                                    }
+                                    id="subscription_number2"
+                                    type="text"
+                                    placeholder="1234-1234-12"
+                                />
+                                <span className="text-xs mt-1 text-red-500">
+                                    {errors.subscription_number2}
+                                </span>
+                            </div>
                         </div>
-                        <div className="flex flex-col">
-                            <label
-                                className="text-sm text-gray-600 tracking-wide leading-6"
-                                htmlFor="last_name2"
-                            >
-                                Familienaam
-                            </label>
-                            <input
-                                className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
-                                value={data.last_name2}
-                                onChange={(e) =>
-                                    setData("last_name2", e.target.value)
-                                }
-                                id="last_name2"
-                                type="text"
-                            />
-                            <span className="text-xs mt-1 text-red-500">
-                                {errors.last_name2}
-                            </span>
+                    )}
+
+                    {thirdUser && (
+                        <div className="flex flex-col gap-2">
+                            <div className="flex justify-between">
+                                <p className="text-sm font-semibold text-gray-500">
+                                    Extra bezoeker
+                                </p>
+                                <button
+                                    className="text-gray-600 text-sm hover:underline"
+                                    onClick={() => removeUser("third")}
+                                >
+                                    Verwijder
+                                </button>
+                            </div>
+                            <div className="flex flex-col">
+                                <label
+                                    className="text-sm text-gray-600 tracking-wide leading-6"
+                                    htmlFor="first_name3"
+                                >
+                                    Voornaam
+                                </label>
+                                <input
+                                    className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
+                                    value={data.first_name3}
+                                    onChange={(e) =>
+                                        setData("first_name3", e.target.value)
+                                    }
+                                    id="first_name3"
+                                    type="text"
+                                />
+                                <span className="text-xs mt-1 text-red-500">
+                                    {errors.first_name3}
+                                </span>
+                            </div>
+                            <div className="flex flex-col">
+                                <label
+                                    className="text-sm text-gray-600 tracking-wide leading-6"
+                                    htmlFor="last_name3"
+                                >
+                                    Familienaam
+                                </label>
+                                <input
+                                    className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
+                                    value={data.last_name3}
+                                    onChange={(e) =>
+                                        setData("last_name3", e.target.value)
+                                    }
+                                    id="last_name3"
+                                    type="text"
+                                />
+                                <span className="text-xs mt-1 text-red-500">
+                                    {errors.last_name3}
+                                </span>
+                            </div>
+                            <div className="flex flex-col">
+                                <label
+                                    className="text-sm text-gray-600 tracking-wide leading-6"
+                                    htmlFor="subscription_number3"
+                                >
+                                    Abonnementsnummer
+                                </label>
+                                <input
+                                    className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
+                                    value={data.subscription_number3}
+                                    onChange={(e) =>
+                                        setData(
+                                            "subscription_number3",
+                                            e.target.value
+                                        )
+                                    }
+                                    id="subscription_number3"
+                                    type="text"
+                                    placeholder="1234-1234-12"
+                                />
+                                <span className="text-xs mt-1 text-red-500">
+                                    {errors.subscription_number3}
+                                </span>
+                            </div>
                         </div>
-                        <div className="flex flex-col">
-                            <label
-                                className="text-sm text-gray-600 tracking-wide leading-6"
-                                htmlFor="subscription_number2"
-                            >
-                                Abonnementsnummer
-                            </label>
-                            <input
-                                className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
-                                value={data.subscription_number2}
-                                onChange={(e) =>
-                                    setData(
-                                        "subscription_number2",
-                                        e.target.value
-                                    )
-                                }
-                                id="subscription_number2"
-                                type="text"
-                                placeholder="1234-1234-12"
-                            />
-                            <span className="text-xs mt-1 text-red-500">
-                                {errors.subscription_number2}
-                            </span>
-                        </div>
-                    </div>
-                    <div className="flex flex-col gap-2">
-                        <div className="flex flex-col">
-                            <label
-                                className="text-sm text-gray-600 tracking-wide leading-6"
-                                htmlFor="first_name3"
-                            >
-                                Voornaam
-                            </label>
-                            <input
-                                className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
-                                value={data.first_name3}
-                                onChange={(e) =>
-                                    setData("first_name3", e.target.value)
-                                }
-                                id="first_name3"
-                                type="text"
-                            />
-                            <span className="text-xs mt-1 text-red-500">
-                                {errors.first_name3}
-                            </span>
-                        </div>
-                        <div className="flex flex-col">
-                            <label
-                                className="text-sm text-gray-600 tracking-wide leading-6"
-                                htmlFor="last_name3"
-                            >
-                                Familienaam
-                            </label>
-                            <input
-                                className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
-                                value={data.last_name3}
-                                onChange={(e) =>
-                                    setData("last_name3", e.target.value)
-                                }
-                                id="last_name3"
-                                type="text"
-                            />
-                            <span className="text-xs mt-1 text-red-500">
-                                {errors.last_name3}
-                            </span>
-                        </div>
-                        <div className="flex flex-col">
-                            <label
-                                className="text-sm text-gray-600 tracking-wide leading-6"
-                                htmlFor="subscription_number3"
-                            >
-                                Abonnementsnummer
-                            </label>
-                            <input
-                                className="rounded text-gray-500 border border-gray-400 outline-none focus:ring-0"
-                                value={data.subscription_number3}
-                                onChange={(e) =>
-                                    setData(
-                                        "subscription_number3",
-                                        e.target.value
-                                    )
-                                }
-                                id="subscription_number3"
-                                type="text"
-                                placeholder="1234-1234-12"
-                            />
-                            <span className="text-xs mt-1 text-red-500">
-                                {errors.subscription_number3}
-                            </span>
-                        </div>
-                    </div>
+                    )}
                 </div>
-                <div>
+
+                {!thirdUser && (
+                    <div>
+                        <button
+                            onClick={handleUsers}
+                            type="button"
+                            className="text-gray-600 text-sm hover:underline"
+                        >
+                            Voeg nog een bezoeker toe
+                        </button>
+                    </div>
+                )}
+                <div className="mt-8 flex justify-end">
                     <button
                         disabled={progress}
                         className="border border-gray-600 px-3 py-1 text-gray-600 font-semibold rounded hover:bg-gray-500 hover:text-gray-50 transition-all delay-75"

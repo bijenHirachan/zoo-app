@@ -1,42 +1,37 @@
-import { Link } from "@inertiajs/react";
-import dayjs from "dayjs";
 import React from "react";
 
-const SchedulesTable = ({ schedules }) => {
+const ReservationsTable = ({ reservations }) => {
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
                     <tr>
                         <th scope="col" className="px-6 py-3">
-                            Tijdslot
+                            Voornaam
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Reservations
+                            Familienaam
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    {schedules?.length > 0 &&
-                        schedules?.map((schedule) => (
+                    {reservations?.length > 0 &&
+                        reservations?.map((reservation) => (
                             <tr
-                                key={schedule.id}
+                                key={reservation.id}
                                 className="bg-white border-b "
                             >
                                 <th
                                     scope="row"
-                                    className="px-6 py-4  text-gray-600"
+                                    className="px-6 py-4  text-gray-500"
                                 >
-                                    <Link href={`/schedules/${schedule.id}`}>
-                                        {schedule.start_time} -
-                                        {schedule.end_time}
-                                    </Link>
+                                    {reservation.first_name}
                                 </th>
                                 <th
                                     scope="row"
-                                    className="px-6 py-4  text-gray-600"
+                                    className="px-6 py-4  text-gray-500"
                                 >
-                                    {schedule.reservations_count}
+                                    {reservation.last_name}
                                 </th>
                             </tr>
                         ))}
@@ -46,4 +41,4 @@ const SchedulesTable = ({ schedules }) => {
     );
 };
 
-export default SchedulesTable;
+export default ReservationsTable;

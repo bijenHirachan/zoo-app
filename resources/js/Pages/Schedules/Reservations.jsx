@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
+import Paginator from "@/Components/Paginator";
+import ReservationsTable from "@/Components/ReservationsTable";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
-import DaysTable from "@/Components/DaysTable";
-import Paginator from "@/Components/Paginator";
-const DayIndex = ({ auth, days, searchString }) => {
-    const [page, setPage] = useState(days?.current_page || 1);
+import React, { useEffect, useState } from "react";
+
+const Reservations = ({ auth, schedule, reservations, searchString }) => {
+    const [page, setPage] = useState(reservations?.current_page || 1);
 
     const [search, setSearch] = useState(searchString || "");
 
     const searchNow = () => {
         router.get(
-            "/days",
+            `/schedules/${schedule.id}`,
             {
                 page,
                 search,
@@ -24,10 +25,10 @@ const DayIndex = ({ auth, days, searchString }) => {
     };
 
     useEffect(() => {
-        const handlePage = setTimeout(() => searchNow(), 500);
+        const handlePaginate = setTimeout(() => searchNow(), 500);
 
         return () => {
-            clearTimeout(handlePage);
+            clearTimeout(handlePaginate);
         };
     }, [page]);
 
@@ -42,15 +43,19 @@ const DayIndex = ({ auth, days, searchString }) => {
 
     return (
         <Authenticated
-            user={auth.user}
+            user={auth?.user}
             header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    Days
-                </h2>
+                <div className="flex items-center justify-between">
+                    <h3 className="text-lg font-medium text-gray-600">
+                        {schedule?.day?.day}
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                        {schedule?.start_time} - {schedule?.end_time}
+                    </p>
+                </div>
             }
         >
-            <Head title="Days" />
-
+            <Head title={`${schedule?.start_time} - ${schedule?.end_time}`} />
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -64,23 +69,22 @@ const DayIndex = ({ auth, days, searchString }) => {
                                     className="rounded border border-gray-400 outline-none focus:ring-0"
                                 />
                             </div>
-
-                            {days?.data.length > 0 ? (
+                            {reservations?.data?.length > 0 ? (
                                 <>
-                                    <DaysTable days={days?.data} />
-
+                                    <ReservationsTable
+                                        reservations={reservations?.data}
+                                    />
                                     <Paginator
                                         page={page}
+                                        currentPage={reservations?.current_page}
+                                        lastPage={reservations?.last_page}
                                         setPage={setPage}
-                                        currentPage={days?.current_page}
-                                        itemName={"days"}
-                                        total={days?.total}
-                                        lastPage={days?.last_page}
+                                        total={reservations?.total}
                                     />
                                 </>
                             ) : (
                                 <p className="text-center my-8 text-lg tracking-wide text-gray-600">
-                                    No days found!
+                                    No reservations found!
                                 </p>
                             )}
                         </div>
@@ -91,4 +95,4 @@ const DayIndex = ({ auth, days, searchString }) => {
     );
 };
 
-export default DayIndex;
+export default Reservations;

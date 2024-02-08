@@ -10,10 +10,15 @@ use Inertia\Inertia;
 
 class DayController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         return Inertia::render("Days/DayIndex", [
-            "days" => Day::with("schedules")->paginate(5)
+            "days" => Day::with("schedules")
+                            ->when($request->query("search"), function($query) use($request){
+                                $query->where('day','LIKE', "%".$request->query("search")."%");
+                            })
+                            ->paginate(5)
+                            ->withQueryString()
         ]);
     }
 

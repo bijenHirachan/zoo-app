@@ -3,6 +3,7 @@
 use App\Http\Controllers\DayController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\ScheduleController;
 use App\Models\Day;
 use App\Models\Schedule;
 use Carbon\Carbon;
@@ -33,6 +34,8 @@ Route::get('/', function (Request $request) {
 })->name("home");
 
 Route::post("/reservations", [ReservationController::class, "store"]);
+
+
 Route::get("/success", function(){
     return Inertia::render("Success");
 })->name("success");
@@ -47,6 +50,7 @@ Route::get('/dashboard', function (Request $request) {
 
 Route::middleware('auth')->group(function () {
     Route::resource("days", DayController::class);
+    Route::resource("schedules", ScheduleController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
