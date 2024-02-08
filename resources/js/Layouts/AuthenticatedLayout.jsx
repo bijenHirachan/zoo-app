@@ -28,8 +28,12 @@ export default function Authenticated({ user, header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
-                            </div>
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink
+                                    href={route("days.index")}
+                                    active={route().current("days.index")}
+                                >
+                                    Days
+                                </NavLink>
                                 <NavLink
                                     href={route("home")}
                                     active={route().current("home")}
@@ -139,6 +143,12 @@ export default function Authenticated({ user, header, children }) {
                             active={route().current("dashboard")}
                         >
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("days.index")}
+                            active={route().current("days.index")}
+                        >
+                            Days
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
                             href={route("home")}

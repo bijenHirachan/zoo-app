@@ -17,7 +17,7 @@ class Housefull implements ValidationRule
     {
         $schedule = Schedule::find($value);
 
-        if($schedule->reservations->count() > 200){
+        if($schedule->reservations->count() >= 200){
             $fail("Het aantal bezoekers heeft de limiet al overschreden. Kies een ander tijdslot.");
         }
     }
