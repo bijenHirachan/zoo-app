@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreReservationRequest;
 use App\Models\Schedule;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
@@ -16,38 +15,22 @@ class ReservationController extends Controller
 
         $data = [];
 
-        array_push($data, [ 
-            "day_id" => $validated["day"],
-            "schedule_id" => $validated["timeslot"],
-            "first_name" => $validated["first_name1"], 
-            "last_name" => $validated["last_name1"],
-            "subscription_number" => $validated["subscription_number1"]
-        ]);
+        $schedule = Schedule::findOrFail($validated["timeslot"]);
 
-        if($validated['first_name2'] !== "" && $validated["first_name2"] !== null){
-            array_push($data, [ 
-                "day_id" => $validated["day"],
-                "schedule_id" => $validated["timeslot"],
-                "first_name" => $validated["first_name2"], 
-                "last_name" => $validated["last_name2"],
-                "subscription_number" => $validated["subscription_number2"]
+        foreach($validated["users"] as $user){
+            array_push($data, [
+                "day_id" => $schedule->day_id,
+                "schedule_id" => $schedule->id,
+                "first_name" => $user["first_name"],
+                "last_name" => $user["last_name"],
+                "subscription_number" => $user["subscription_number"]
             ]);
         }
 
-        if($validated['first_name3'] !== "" && $validated["first_name3"] !== null){
-            array_push($data, [ 
-                "day_id" => $validated["day"],
-                "schedule_id" => $validated["timeslot"],
-                "first_name" => $validated["first_name3"], 
-                "last_name" => $validated["last_name3"],
-                "subscription_number" => $validated["subscription_number3"]
-            ]);
-        }
-
-        $d = DB::table("reservations")->insert($data);
+        DB::table("reservations")->insert($data);
 
         return Inertia::render("Success", [
-            "data" => $data[0]
+            "data" => $data
         ]);
     }
 }

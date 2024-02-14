@@ -179,10 +179,10 @@ return [
         "timeslot" => [
             "required" => "Tijdslot is verplicht."
         ],
-        "first_name1" => [
+        "users.*.first_name" => [
             "required" => "Uw voornaam is verplicht."
         ],
-        "last_name1" => [
+        "users.*.last_name" => [
             "required" => "Uw familienaam is verplicht."
         ],
         "last_name2" => [
@@ -191,7 +191,7 @@ return [
         "last_name3" => [
             "required_unless" => "Vergeet niet de achternaam toe te voegen."
         ],
-        "subscription_number1" => [
+        "users.*.subscription_number" => [
             "regex" => "Uw abonnementsnuumer heeft niet juiste formaat."
         ],
         "subscription_number2" => [

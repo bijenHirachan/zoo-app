@@ -26,15 +26,9 @@ class StoreReservationRequest extends FormRequest
         return [
             "day" => "required",
             "timeslot" => ["required", new Housefull],
-            "first_name1" => "required",
-            "last_name1" => "required",
-            "subscription_number1" => ["nullable", "regex:/^[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]-[0-9][0-9]/i", new InvalidSubscription],
-            "first_name2" => "nullable",
-            "last_name2" => "sometimes|required_unless:first_name2,null",
-            "subscription_number2" => ["nullable", "regex:/^[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]-[0-9][0-9]/i", new InvalidSubscription],
-            "first_name3" => "nullable",
-            "last_name3" => "sometimes|required_unless:first_name3,null",
-            "subscription_number3" => ["nullable", "regex:/^[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]-[0-9][0-9]/i", new InvalidSubscription],
+            "users.*.first_name" => "required",
+            "users.*.last_name" => "required",
+            "users.*.subscription_number" => ["nullable", "regex:/^[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]-[0-9][0-9]/i", new InvalidSubscription],
         ];
     }
 }

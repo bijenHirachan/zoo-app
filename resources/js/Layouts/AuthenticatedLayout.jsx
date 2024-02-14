@@ -30,15 +30,15 @@ export default function Authenticated({ user, header, children }) {
                                 </NavLink>
                                 <NavLink
                                     href={route("days.index")}
-                                    active={route().current("days.index")}
+                                    active={route().current("days.*")}
                                 >
-                                    Days
+                                    Datums
                                 </NavLink>
                                 <NavLink
                                     href={route("home")}
                                     active={route().current("home")}
                                 >
-                                    Registration Form
+                                    Registratie Formulier
                                 </NavLink>
                             </div>
                         </div>

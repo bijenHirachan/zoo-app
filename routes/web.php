@@ -5,8 +5,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ScheduleController;
 use App\Models\Day;
-use App\Models\Schedule;
-use Carbon\Carbon;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -25,20 +23,12 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function (Request $request) {
-    $day = Day::find($request->query("day"));
-
     return Inertia::render('Welcome', [
         "days" => Day::with("schedules")->get(),
-        "schedules" => $day ? $day->schedules : collect()
     ]);
 })->name("home");
 
 Route::post("/reservations", [ReservationController::class, "store"]);
-
-
-Route::get("/success", function(){
-    return Inertia::render("Success");
-})->name("success");
 
 Route::get('/dashboard', function (Request $request) {
 

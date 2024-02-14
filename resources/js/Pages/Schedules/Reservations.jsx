@@ -47,10 +47,10 @@ const Reservations = ({ auth, schedule, reservations, searchString }) => {
             header={
                 <div className="flex items-center justify-between">
                     <h3 className="text-lg font-medium text-gray-600">
-                        {schedule?.day?.day}
+                        Datum {schedule?.day?.day}
                     </h3>
                     <p className="text-sm text-gray-600">
-                        {schedule?.start_time} - {schedule?.end_time}
+                        Tijdslot {schedule?.start_time} - {schedule?.end_time}
                     </p>
                 </div>
             }

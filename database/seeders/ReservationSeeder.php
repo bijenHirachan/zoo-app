@@ -16,7 +16,7 @@ class ReservationSeeder extends Seeder
     {
       
         foreach(range(1,30) as $number){
-          foreach(range(2,5) as $item){
+          foreach(range(5,15) as $item){
             $day = Day::find($item);
 
             Reservation::create([
@@ -27,7 +27,7 @@ class ReservationSeeder extends Seeder
                 'subscription_number' => null
             ]);
           }
-          foreach(range(2,10) as $item){
+          foreach(range(4,12) as $item){
             $day = Day::find($item);
 
             Reservation::create([
@@ -49,7 +49,7 @@ class ReservationSeeder extends Seeder
                 'subscription_number' => null
             ]);
           }
-          foreach(range(2,30) as $item){
+          foreach(range(3,29) as $item){
             $day = Day::find($item);
 
             Reservation::create([
@@ -60,7 +60,7 @@ class ReservationSeeder extends Seeder
                 'subscription_number' => null
             ]);
           }
-          foreach(range(8,14) as $item){
+          foreach(range(8,18) as $item){
             $day = Day::find($item);
 
             Reservation::create([
@@ -90,6 +90,27 @@ class ReservationSeeder extends Seeder
           Reservation::create([
             'day_id' => 1,
             'schedule_id' => 1,
+            'first_name' => fake()->firstName(),
+            'last_name' => fake()->lastName(),
+            'subscription_number' => null
+        ]);
+          Reservation::create([
+            'day_id' => 1,
+            'schedule_id' => 2,
+            'first_name' => fake()->firstName(),
+            'last_name' => fake()->lastName(),
+            'subscription_number' => null
+        ]);
+          Reservation::create([
+            'day_id' => 2,
+            'schedule_id' => 18,
+            'first_name' => fake()->firstName(),
+            'last_name' => fake()->lastName(),
+            'subscription_number' => null
+        ]);
+          Reservation::create([
+            'day_id' => 30,
+            'schedule_id' => 266,
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
             'subscription_number' => null

@@ -8,8 +8,8 @@ const ShowDay = ({ auth, day }) => {
         <Authenticated
             user={auth?.user}
             header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    {day?.day}
+                <h2 className="font-semibold text-lg text-gray-600 leading-tight">
+                    Datum {day?.day}
                 </h2>
             }
         >
