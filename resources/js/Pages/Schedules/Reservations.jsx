@@ -2,6 +2,7 @@ import Paginator from "@/Components/Paginator";
 import ReservationsTable from "@/Components/ReservationsTable";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
+import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 
 const Reservations = ({ auth, schedule, reservations, searchString }) => {
@@ -47,7 +48,7 @@ const Reservations = ({ auth, schedule, reservations, searchString }) => {
             header={
                 <div className="flex items-center justify-between">
                     <h3 className="text-lg font-medium text-gray-600">
-                        Datum {schedule?.day?.day}
+                        Datum {dayjs(schedule?.day?.day).format("DD/MM/YYYY")}
                     </h3>
                     <p className="text-sm text-gray-600">
                         Tijdslot {schedule?.start_time} - {schedule?.end_time}

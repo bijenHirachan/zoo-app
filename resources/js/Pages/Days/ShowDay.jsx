@@ -1,6 +1,7 @@
 import SchedulesTable from "@/Components/SchedulesTable";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
+import dayjs from "dayjs";
 import React from "react";
 
 const ShowDay = ({ auth, day }) => {
@@ -9,11 +10,11 @@ const ShowDay = ({ auth, day }) => {
             user={auth?.user}
             header={
                 <h2 className="font-semibold text-lg text-gray-600 leading-tight">
-                    Datum {day?.day}
+                    Datum {dayjs(day?.day).format("DD/MM/YYYY")}
                 </h2>
             }
         >
-            <Head title={day?.day} />
+            <Head title={dayjs(day?.day).format("DD/MM/YYYY")} />
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
